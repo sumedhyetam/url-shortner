@@ -32,9 +32,9 @@ func main() {
 }
 
 func setupRoutes(router *gin.Engine) {
-	router.POST("/shorten", routes.ShortenURL)
-	// router.GET("/:shortenedURL", routes.GetURL)
-	// router.POST("/addTag", routes.AddTag)
-	// router.POST("/editUrl", routes.EditURL)
-	// router.POST("/deleteUrl", routes.DeleteURL)
+	router.POST("/api/v1", routes.ShortenURL)
+	router.GET("/api/v1/:shortID", routes.GetByShortID)
+	router.POST("/api/v1/addTag", routes.AddTag)
+	router.PUT("/api/v1/:shortID", routes.EditURL)
+	router.DELETE("/api/v1/:shortID", routes.DeleteURL)
 }
