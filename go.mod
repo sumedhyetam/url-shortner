@@ -1,4 +1,4 @@
-module sumedhyetam/url-shortner
+module github.com/sumedhyetam/url-shortner
 
 go 1.23.0
 
