@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"sumedhyetam/url-shortner/api/routes"
+	"github.com/sumedhyetam/url-shortner/api/routes"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

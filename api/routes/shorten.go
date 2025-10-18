@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/SumedhY/url-shortner/api/database"
-	"github.com/SumedhY/url-shortner/api/models"
-	"github.com/SumedhY/url-shortner/api/utils"
+	"github.com/sumedhyetam/url-shortner/api/database"
+	"github.com/sumedhyetam/url-shortner/api/models"
+	"github.com/sumedhyetam/url-shortner/api/utils"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
