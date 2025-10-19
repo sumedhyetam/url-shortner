@@ -2,7 +2,6 @@ package routes
 
 import (
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 
@@ -12,7 +11,7 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"github.com/google/uuid"
 )
 
@@ -32,14 +31,19 @@ func ShortenURL(c *gin.Context) {
 
 	val, err := r2.Get(database.Ctx, c.ClientIP()).Result()
 
+	//fmt.Println(val, "val")
+
 	if err == redis.Nil {
-		_ = r2.Set(database.Ctx, c.ClientIP(), os.Getenv("API_QUOTA"), 30*60*time.Second)
+		_ = r2.Set(database.Ctx, c.ClientIP(), "10", 30*60*time.Second)
 	} else {
 		val, _ = r2.Get(database.Ctx, c.ClientIP()).Result()
+		//fmt.Println(val, "val")
 		valInt, _ := strconv.Atoi(val)
+		//fmt.Println(valInt, "valInt")
 		if valInt <= 0 {
 
 			limit, _ := r2.TTL(database.Ctx, c.ClientIP()).Result()
+			//fmt.Println(limit)
 			c.JSON(http.StatusServiceUnavailable, gin.H{
 				"error":            "Rate limit exceeded",
 				"rate_limit_reset": limit / time.Nanosecond / time.Minute,
@@ -87,7 +91,7 @@ func ShortenURL(c *gin.Context) {
 		body.Expiry = 24
 	}
 
-	err = r.Set(database.Ctx, id, body.URL, body.Expiry*3600*time.Second)
+	err = r.Set(database.Ctx, id, body.URL, body.Expiry*3600*time.Second).Err()
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -110,7 +114,7 @@ func ShortenURL(c *gin.Context) {
 	resp.XRateRemaining, _ = strconv.Atoi(val)
 	ttl, _ := r2.TTL(database.Ctx, c.ClientIP()).Result()
 	resp.XRateLimitRest = ttl / time.Nanosecond / time.Minute
-	resp.CustomShort = os.Getenv("DOMAIN") + "/" + id
+	resp.CustomShort = "localhost:3000" + "/" + id
 	c.JSON(http.StatusOK, resp)
 
 	// c.JSON(http.StatusOK, gin.H{

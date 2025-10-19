@@ -42,6 +42,6 @@ func EditURL(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": "The Content has been updated",
+		"message": "shortened link updated successfully",
 	})
 }

@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"os"
 	"strings"
 
 	neturl "net/url"
@@ -12,7 +11,7 @@ func IsDifferentDomain(u string) bool {
 	if err != nil {
 		return false
 	}
-	return parsedURL.Host != os.Getenv("DOMAIN")
+	return parsedURL.Host != "localhost:3000"
 }
 
 func EnsureHttpPrefix(u string) string {

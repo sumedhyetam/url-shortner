@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/sumedhyetam/url-shortner/api/routes"
 
@@ -22,7 +21,7 @@ func main() {
 
 	setupRoutes(router)
 
-	port := os.Getenv("PORT")
+	port := "8000"
 
 	if port == "" {
 		port = "8080"
