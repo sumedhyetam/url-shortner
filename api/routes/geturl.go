@@ -21,7 +21,8 @@ func GetByShortID(c *gin.Context) {
 		})
 		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{"data": val})
+	// Redirect to the URL from "data"
+	c.Redirect(http.StatusFound, value)
+	//c.JSON(http.StatusOK, gin.H{"data": val})
 
 }
